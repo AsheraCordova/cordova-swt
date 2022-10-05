@@ -6,9 +6,31 @@
  * User Manual available at https://docs.gradle.org/6.3/userguide/java_library_plugin.html
  */
 
+
+buildscript {
+    ext {
+   		osgi_platform = 'win32.win32.x86_64'
+    }
+    
+	repositories {
+        mavenCentral()
+    }
+}
+
 plugins {
     // Apply the java-library plugin to add support for Java Library
-    id 'java-library'
+    id 'application'
+}
+
+
+configurations.all {
+    resolutionStrategy {
+        dependencySubstitution {
+            // The maven property ${osgi.platform} is not handled by Gradle
+            // so we replace the dependency, using the osgi platform from the project settings
+            substitute module('org.eclipse.platform:org.eclipse.swt.${osgi.platform}') with module("org.eclipse.platform:org.eclipse.swt.$osgi_platform:3.116.100")
+        }
+    }
 }
 
 sourceSets {
@@ -33,16 +55,17 @@ dependencies {
     
 }
 
-// PLUGIN GRADLE EXTENSIONS START
-apply from: "../com.ashera.converter.swt/demoapp2-core.gradle"
-apply from: "../com.ashera.core.swt/demoapp2-core.gradle"
-apply from: "../com.ashera.json.swt/demoapp2-core.gradle"
-apply from: "../com.ashera.layout.swt/demoapp2-core.gradle"
-apply from: "../com.ashera.cssborder.swt/demoapp2-core.gradle"
-apply from: "../com.ashera.capinsets.swt/demoapp2-core.gradle"
-apply from: "../com.ashera.drawerlayout.swt/demoapp2-core.gradle"
-apply from: "../com.ashera.toolbar.swt/demoapp2-core.gradle"
-apply from: "../com.ashera.recycleview.swt/demoapp2-core.gradle"
-apply from: "../com.ashera.datetime.swt/demoapp2-core.gradle"
-apply from: "../cordova-plugin-sqlite-2-swt/demoapp2-core.gradle"
+// PLUGIN GRADLE EXTENSIONS START"
 // PLUGIN GRADLE EXTENSIONS END
+
+tasks.withType(Copy).all { duplicatesStrategy 'exclude' }
+
+apply plugin : "java" 
+
+ext {
+   javaMainClass = "com.ashera.swt.starter.TestApp"
+}
+
+application {
+    mainClassName = javaMainClass
+}
