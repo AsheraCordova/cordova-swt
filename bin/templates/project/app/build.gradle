@@ -61,8 +61,12 @@ repositories {
     mavenCentral()
 }
 
+def aspectj_version = '1.9.1';
+configurations {
+	aspectjweaver
+}
 dependencies {
-    
+    aspectjweaver "org.aspectj:aspectjweaver:${aspectj_version}"
 }
 
 // PLUGIN GRADLE EXTENSIONS START"
@@ -74,6 +78,11 @@ apply plugin : "java"
 
 ext {
    javaMainClass = "com.ashera.swt.starter.TestApp"
+}
+
+if (os.contains("mac")) { 
+	// only for mac
+	vmArgs += "-javaagent:" + configurations.aspectjweaver.asPath;
 }
 
 application {
