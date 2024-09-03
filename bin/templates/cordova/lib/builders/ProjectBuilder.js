@@ -185,7 +185,7 @@ class ProjectBuilder {
         }
 
         // get project name cdv-gradle-config.
-        const cdvGradleConfig = CordovaGradleConfigParserFactory.create(path.join(this.root, '../../platforms/android/'));
+        const cdvGradleConfig = CordovaGradleConfigParserFactory.create(this.root);
         const projectName = cdvGradleConfig.getProjectNameFromPackageName();
 
         // Remove the proj.id/name- prefix from projects: https://issues.apache.org/jira/browse/CB-9149
