@@ -173,10 +173,10 @@ function updateWww (cordovaProject, destinations) {} function updateWww1 (cordov
     ];
 
     // If project contains 'merges' for our platform, use them as another overrides
-    var merges_path = path.join(cordovaProject.root, 'merges', 'android');
+    var merges_path = path.join(cordovaProject.root, 'merges', 'swt');
     if (fs.existsSync(merges_path)) {
-        events.emit('verbose', 'Found "merges/android" folder. Copying its contents into the android project.');
-        sourceDirs.push(path.join('merges', 'android'));
+        events.emit('verbose', 'Found "merges/swt" folder. Copying its contents into the android project.');
+        sourceDirs.push(path.join('merges', 'swt'));
     }
 
     var targetDir = path.relative(cordovaProject.root, destinations.www);

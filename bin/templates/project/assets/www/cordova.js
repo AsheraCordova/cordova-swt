@@ -1413,7 +1413,7 @@ define("cordova/platform", function(require, exports, module) {
 var lastResumeEvent = null;
 
 module.exports = {
-    id: 'android',
+    id: 'swt',
     bootstrap: function () {
         var channel = require('cordova/channel');
         var cordova = require('cordova');
