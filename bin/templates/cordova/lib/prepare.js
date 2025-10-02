@@ -166,7 +166,7 @@ function logFileOp (message) {
  * @param   {Object}  destinations      An object that contains destination
  *   paths for www files.
  */
-function updateWww (cordovaProject, destinations) {} function updateWww1 (cordovaProject, destinations) {
+function updateWww (cordovaProject, destinations) {
     var sourceDirs = [
         path.relative(cordovaProject.root, cordovaProject.locations.www),
         path.relative(cordovaProject.root, destinations.platformWww)
